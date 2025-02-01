@@ -1,9 +1,7 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.shortcuts import render
 import os
 from dotenv import load_dotenv
 from groq import Groq
-from django.views.generic import ListView
 from .models import Ai
 from .forms import AiForm
 
@@ -27,13 +25,8 @@ response = client.chat.completions.create(
     # top_p=1,
     # stream=True,
     # stop=None,
-
-
-    # response.choices[0].message.content
 )
 
-# def home(request):
-#     return render(request,'index.html')
 
 def ai_response(question):
     response = client.chat.completions.create(
