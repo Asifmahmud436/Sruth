@@ -92,7 +92,7 @@
                     <p>{{chat.question}}</p>
                 </div>
                 <div class="chat answer-container">
-                    <p>{{chat.answer}}</p>
+                    <pre style="white-space: pre-wrap;">{{ chat.answer }}</pre>
                 </div>
             {% endfor %}
         </div>
@@ -113,12 +113,12 @@
             function scrollToBottom() {
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
-    
+        
             const observer = new MutationObserver(scrollToBottom);
             observer.observe(chatContainer, { childList: true });
-    
+        
             scrollToBottom();
-        });
+        });                
     </script>
     
 </body>

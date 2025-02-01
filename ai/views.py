@@ -57,14 +57,11 @@ def make_question(request):
         ai_form = AiForm(request.POST)
         if ai_form.is_valid():
             chat = ai_form.save(False)
-            print(ai_form.cleaned_data['question'])
             response = ai_response(ai_form.cleaned_data['question'])
-            print(response)
             chat.question = ai_form.cleaned_data['question']
             chat.answer = response
             chat.save()
             ai_form = AiForm()
-            
     else:
         ai_form = AiForm()
     all_chat_list = Ai.objects.all()
