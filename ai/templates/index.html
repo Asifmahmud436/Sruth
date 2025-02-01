@@ -1,4 +1,4 @@
-{% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +14,9 @@
             <p>A: {{ chat.answer }}</p>
         {% endfor %}
     </div>
+    {% load crispy_forms_tags %}
     <form style="width:50%; margin:auto;" method="post">
-        <h1>Add a Question</h1>
+        {% comment %} <h1>Add a Question</h1> {% endcomment %}
         {% csrf_token %}    
         {{ form | crispy }}
         <input type="submit" value="Submit" class="btn btn-primary">
