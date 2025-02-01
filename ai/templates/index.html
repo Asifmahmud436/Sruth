@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +10,15 @@
     <h1>Hello Ai</h1>
     <div>
         {% for chat in all_chat_list%}
-            <p>{{ chat.question }}</p>
-            <p>{{ chat.answer }}</p>
+            <p>Q: {{ chat.question }}</p>
+            <p>A: {{ chat.answer }}</p>
         {% endfor %}
     </div>
+    <form style="width:50%; margin:auto;" method="post">
+        <h1>Add a Question</h1>
+        {% csrf_token %}    
+        {{ form | crispy }}
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
 </body>
 </html>
