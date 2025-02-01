@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from groq import Groq
 from django.views.generic import ListView
 from .models import Ai
+from .forms import AiForm
 
 MY_KEY = os.getenv('SRUTH_KEY')
 
@@ -29,10 +30,19 @@ response = client.chat.completions.create(
     # response.choices[0].message.content
 )
 
-def home(request):
-    return render(request,'index.html')
+# def home(request):
+#     return render(request,'index.html')
 
 class HomePageView(ListView):
     model = Ai
     template_name = 'index.html'
     context_object_name = 'all_chat_list'
+
+def make_question(request):
+    if request.method == "POST":
+        ai_form = AiForm(request.POST)
+        if ai_form.is_valid():
+            print(ai_form)
+    else:
+        ai_form = AiForm()
+    return render(request,'index.html',{'form':ai_form})
