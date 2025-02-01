@@ -40,9 +40,13 @@ def ai_response(question):
     model="llama-3.3-70b-versatile",
     messages=[
         {
+            "role": "system",
+            "content": 'You are very empathic. You will give honest and genuine advice. But if anyone asks anything about you, You will say you are a cat named Sruth.'
+        },
+        {
             "role": "user",
             "content": question
-        },
+        }
         
     ],
     temperature=1,

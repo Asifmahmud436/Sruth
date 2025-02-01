@@ -1,25 +1,125 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI chats</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    <title>Ai Design</title>
+
+    <style>
+        *{
+            font-family: "Lato", serif;
+            color: white;
+            background-color: black;
+
+        }
+        .header{
+            position: relative;
+            
+        }
+        .content{
+            max-width: 80%;
+            margin: 0px auto;
+        }
+        .form-container{
+            max-width: 1044px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        form{
+            display: flex;
+            justify-content: space-evenly;
+            gap: 20px;
+        }
+
+        form input[type=submit]{
+            width: 100px;
+            height: 40px;
+            border-radius: 4px;
+            border: 1px solid gray;
+        }
+        form textarea{
+            width: 800px;
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid gray;
+        }
+
+        label[for='question']{
+            display: none;
+        }
+        .chat-container{
+            height: 60vh;
+            overflow-y: scroll;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .chat{
+            max-width: 50%;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin: 10px 15px;
+            border: 1px solid gray;
+        }
+        .answer-container{
+            display: flex;
+            align-self: flex-start;
+        }
+        .question-container{
+            display: flex;
+            align-self: flex-end;
+        }
+        label[for='id_question'] {
+            display: none;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Hello Ai</h1>
-    <div>
-        {% for chat in all_chat_list%}
-            <p>Q: {{ chat.question }}</p>
-            <p>A: {{ chat.answer }}</p>
-        {% endfor %}
+    <div class="content">
+        <div class="header">
+            <h1>Sruth Ai</h1>
+        </div>
+        <div class="chat-container">
+            {% for chat in all_chat_list %}
+                <div class="chat question-container">
+                    <p>{{chat.question}}</p>
+                </div>
+                <div class="chat answer-container">
+                    <p>{{chat.answer}}</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
     {% load crispy_forms_tags %}
-    <form style="width:50%; margin:auto;" method="post">
-        {% comment %} <h1>Add a Question</h1> {% endcomment %}
-        {% csrf_token %}    
-        {{ form | crispy }}
-        <input type="submit" value="Submit" class="btn btn-primary">
-    </form>
+    {% comment %} Question Form {% endcomment %}
+    <div class="form-container">
+        <form method='post'>
+            {% csrf_token %}
+            {{ form }}
+            <input type='submit' value="Submit">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const chatContainer = document.querySelector(".chat-container");
+            function scrollToBottom() {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+    
+            const observer = new MutationObserver(scrollToBottom);
+            observer.observe(chatContainer, { childList: true });
+    
+            scrollToBottom();
+        });
+    </script>
+    
 </body>
 </html>
