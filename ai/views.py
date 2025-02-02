@@ -11,22 +11,6 @@ client = Groq(
     api_key=MY_KEY
 )
 
-response = client.chat.completions.create(
-    model="llama-3.3-70b-versatile",
-    messages=[
-        {
-            "role": "user",
-            "content": "Can you see this?"
-        },
-        
-    ],
-    temperature=1,
-    # max_completion_tokens=1024,
-    # top_p=1,
-    # stream=True,
-    # stop=None,
-)
-
 
 def ai_response(question):
     response = client.chat.completions.create(
@@ -43,10 +27,6 @@ def ai_response(question):
         
     ],
     temperature=1,
-    # max_completion_tokens=1024,
-    # top_p=1,
-    # stream=True,
-    # stop=None,
     )
     return response.choices[0].message.content
 
@@ -65,4 +45,5 @@ def make_question(request):
     else:
         ai_form = AiForm()
     all_chat_list = Ai.objects.all()
+    
     return render(request,'index.html',{'form':ai_form,'all_chat_list':all_chat_list})
